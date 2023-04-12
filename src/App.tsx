@@ -20,7 +20,7 @@ const doSmth=()=> {
       <h1>
         Are you up to the task ?
         <br />
-        Will you join our team of dedicated developers and designers ? 😃
+        Will you join our team of dedicated problem solvers ? 😃
       </h1>
       <h3>
       Introducing IWCI:
@@ -55,7 +55,7 @@ const doSmth=()=> {
         At IWCI, we are more than just a group of developers and designers – we are a team of creative problem solvers, dedicated to making a meaningful impact in the world through innovative software and product solutions. If you are a motivated, talented individual with a passion for technology and design, we invite you to join our exciting journey as we continue to push the boundaries of what's possible.
       </p>
       <p>
-        Ho, you've taken the time to read until here ? Well, the clock is ticking... Don't loose time.
+        Ho, you've taken the time to read up to here ? Well, the clock is ticking... Don't loose time.
         But you are right : it's important to thoroughly read the documentation before starting to code. So, writte down this: "Peanut butter jelly time" in the <code>CODE.md</code> file to get a nice surprise.
       </p>
       <p>
