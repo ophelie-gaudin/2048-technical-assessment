@@ -19,10 +19,10 @@ $ yarn dev
 
 # Goal
 
-The goal of this exercice is to provide you with a simple game to code. It aims at allowing us to assess your skills, self-organization ability and decision making.
+The goal of this exercise is to provide you with a simple game to code. It aims at allowing us to assess your skills, self-organization ability and decision making.
 You are free to realize it however you see fit - meaning : do whatever you want in whatever order you want. Get points wherever you can.
 
-We want to assess your decision making when faced with a constraint (here, the clock). How do you prioritize and why ?
+We want to assess your decision making when faced with a constraint (here, the clock). How do you prioritize tasks and why ?
 
 # The game
 It's a **Memory**
@@ -33,7 +33,7 @@ The goal is to have a set of hidden cards that, when clicked, will display a num
 - They can never be more than 2 cards with the same number, and each number must appear on exactly 2 cards. Therefore, there can only be a multiple of 2 cards, with a minimum of 4 cards.
 - The user can click on a card to display its number
 - When two cards are shown, after a small delay, and before the user clicks on any other card, the shown cards should go back to their hidden state
-- When two shown cards share the same number, they should stay hidden until the end of the game.
+- When two shown cards share the same number, they should stay shown until the end of the game.
 - The game stops when all cards are shown
 
 ### Main Objective :
