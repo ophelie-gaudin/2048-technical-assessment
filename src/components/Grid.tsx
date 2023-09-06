@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 export const Grid = () => {
   const grid = [
@@ -8,7 +8,30 @@ export const Grid = () => {
     [null, null, null, null],
   ];
 
-  const playGame = () => {};
+  const [counter, setCounter] = useState(0);
+
+  const [isRunningGame, setIsRunningGame] = useState<boolean>(true);
+  const [endGame, setEndGame] = useState<string | null>(null);
+
+  const playGame = () => {
+    // Conditions for a new turn : no case with 2048 value (succeed) && no empty grid
+
+    for (const row of grid) {
+      for (const value of row) {
+        if (value == 2048) {
+          setEndGame("Succeed");
+        }
+      }
+    }
+
+    // Display a number in a case with null value (random)
+
+    // Add event listener on keyboard for one direction
+
+    // Move cases + add their value when they are side by side
+
+    // Add +1 at counter
+  };
 
   return (
     <div className="container">
