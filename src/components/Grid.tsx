@@ -1,37 +1,67 @@
 import { ReactNode, useState } from "react";
 
 export const Grid = () => {
-  const grid = [
+  const [grid, setGrid] = useState([
     [null, null, null, null],
     [null, null, null, null],
     [null, null, null, null],
     [null, null, null, null],
-  ];
-
-  const [counter, setCounter] = useState(0);
-
-  const [isRunningGame, setIsRunningGame] = useState<boolean>(true);
+  ]);
+  const [isRunningGame, setIsRunningGame] = useState<boolean | null>(true);
   const [endGame, setEndGame] = useState<string | null>(null);
+  const [emptyBoxes, setEmptyBoxes] = useState<Array>([]);
 
-  const playGame = () => {
-    // Conditions for a new turn : no case with 2048 value (succeed) && no empty grid
+  const checkEndOfGame = () => {
+    setIsRunningGame(false);
 
-    for (const row of grid) {
-      for (const value of row) {
+    loop1: for (const row of grid) {
+      loop2: for (const value of row) {
+        // Check if success
         if (value == 2048) {
+          setIsRunningGame(false);
           setEndGame("Succeed");
+          break loop1;
+        }
+
+        // Check if there is an empty box
+        if (value == null) {
+          setIsRunningGame(true);
+          setEmptyBoxes(
+            emptyBoxes.insert({
+              row: grid.indexOf(row),
+              column: grid[grid.indexOf(row)].indexOf(value),
+            })
+          );
         }
       }
     }
-
-    // Display a number in a case with null value (random)
-
-    // Add event listener on keyboard for one direction
-
-    // Move cases + add their value when they are side by side
-
-    // Add +1 at counter
   };
+
+  const addNewBox = () => {
+    const randomIndex = Math.floor(Math.random() * emptyBoxes.length);
+    const selectedEmptyBox = emptyBoxes[randomIndex];
+    const randomNewValue = Math.floor(Math.random() * 100) % 2 === 0 ? 2 : 4;
+
+    const newGrid = [...grid];
+    newGrid[selectedEmptyBox.row][selectedEmptyBox.column] = randomNewValue;
+    setGrid(newGrid);
+  };
+
+  const playGame = () => {
+    // Conditions for a new turn : no box with 2048 value (succeed) && no empty grid
+    checkEndOfGame();
+
+    if (isRunningGame) {
+      // Display a number in a box with null value (random)
+      addNewBox();
+
+      // Add event listener on keyboard for one direction
+      // Move boxes + add their value when they are side by side
+      // Add +1 at counter
+    }
+  };
+
+  playGame();
 
   return (
     <div className="container">
