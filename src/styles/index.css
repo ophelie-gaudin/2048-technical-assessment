@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -70,4 +74,18 @@ button:focus-visible {
 
 .App {
   text-align: justify;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.column {
+  background-color: lightcoral;
+  padding: 1rem 0;
+  flex: 1;
+  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
 }

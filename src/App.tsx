@@ -1,23 +1,24 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import { Grid } from "./components/Grid";
 
 function App() {
-
-  const [state,setState]=useState(0)
-const doSmth=()=> {
-
-
-
-
-  console.log(
-    "is it ok ?"
-  );
-
-}
+  const [state, setState] = useState(0);
+  const doSmth = () => {
+    console.log("is it ok ?");
+  };
 
   return (
     <div className="App">
-      <h1>
+      <Grid />
+    </div>
+  );
+}
+
+export default App;
+
+{
+  /* <h1>
         Are you up to the task ?
         <br />
         Will you join our team of dedicated problem solvers ? 😃
@@ -60,9 +61,5 @@ const doSmth=()=> {
       </p>
       <p>
         In conclusion, IWCI is a great place for those who are eager to learn, grow, and be proud of their commitment toward an honnest, great quality work. We invite you to join our team, where you will find a culture of excellence, innovation, and balance – a place where you can truly belong and thrive.
-      </p>
-    </div>
-  )
+      </p> */
 }
-
-export default App
