@@ -40,11 +40,11 @@ export const Grid = () => {
   };
 
   const addNewBox = () => {
+    const newGrid = [...grid];
     const randomIndex = Math.floor(Math.random() * emptyBoxes.length);
     const selectedEmptyBox = emptyBoxes[randomIndex];
     const randomNewValue = Math.floor(Math.random() * 100) % 2 === 0 ? 2 : 4;
 
-    const newGrid = [...grid];
     newGrid[selectedEmptyBox.row][selectedEmptyBox.column] = randomNewValue;
     setGrid(newGrid);
   };
@@ -72,6 +72,23 @@ export const Grid = () => {
     });
   };
 
+  const moveBoxes = () => {
+    switch (direction) {
+      case "down":
+        // check rows down to up (not the 4th row = not interest)
+        // if there is non null values, they are
+        break;
+      case "up":
+        break;
+      case "right":
+        break;
+      case "left":
+        break;
+      default:
+        console.log("Sorry, your direction hasn't be stored !");
+    }
+  };
+
   const playGame = () => {
     // Conditions for a new turn : no box with 2048 value (succeed) && no empty grid
     checkEndOfGame();
@@ -84,6 +101,7 @@ export const Grid = () => {
       listenDirection();
 
       // Move boxes + add their value when they are side by side
+      moveBoxes();
 
       // Add +1 at counter
     }
