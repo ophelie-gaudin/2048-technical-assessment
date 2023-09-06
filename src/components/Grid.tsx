@@ -9,34 +9,107 @@ export const Grid = () => {
   ]);
   const [isRunningGame, setIsRunningGame] = useState<boolean | null>(true);
   const [endGame, setEndGame] = useState<string | null>(null);
-  const [emptyBoxes, setEmptyBoxes] = useState<[Object]>([]);
+  const [emptyBoxes, setEmptyBoxes] = useState<Object[]>([
+    {
+      row: 0,
+      column: 0,
+    },
+    {
+      row: 0,
+      column: 1,
+    },
+    {
+      row: 0,
+      column: 2,
+    },
+    {
+      row: 0,
+      column: 3,
+    },
+    {
+      row: 0,
+      column: 0,
+    },
+    {
+      row: 1,
+      column: 1,
+    },
+    {
+      row: 1,
+      column: 2,
+    },
+    {
+      row: 1,
+      column: 3,
+    },
+    {
+      row: 2,
+      column: 0,
+    },
+    {
+      row: 2,
+      column: 1,
+    },
+    {
+      row: 2,
+      column: 2,
+    },
+    {
+      row: 2,
+      column: 3,
+    },
+    {
+      row: 3,
+      column: 0,
+    },
+    {
+      row: 3,
+      column: 1,
+    },
+    {
+      row: 3,
+      column: 2,
+    },
+    {
+      row: 3,
+      column: 3,
+    },
+  ]);
   const [direction, setDirection] = useState<string>("down");
 
   const checkEndOfGame = () => {
-    setIsRunningGame(false);
-
-    loop1: for (const row of grid) {
-      loop2: for (const value of row) {
+    let isNewRunningGame = false;
+    let endGame = null;
+    const newEmptyBoxes = [];
+    loop1: for (let j = 0; j < 4; j++) {
+      const row = grid[j];
+      loop2: for (let i = 0; i < 4; i++) {
+        const box = row[i];
         // Check if success
-        if (value == 2048) {
-          setIsRunningGame(false);
-          setEndGame("Succeed");
+        if (box == 2048) {
+          endGame = "Succeed";
           break loop1;
         }
 
         // Check if there is an empty box
-        if (value == null) {
-          setIsRunningGame(true);
-          setEmptyBoxes(
-            emptyBoxes <<
-              {
-                row: grid.indexOf(row),
-                column: grid[grid.indexOf(row)].indexOf(value),
-              }
-          );
+        if (box == null) {
+          isNewRunningGame = true;
+          newEmptyBoxes.push({
+            row: j,
+            column: i,
+          });
         }
       }
     }
+
+    if (newEmptyBoxes.length === 0) {
+      endGame = "Fail";
+    }
+
+    setEndGame(endGame);
+    setIsRunningGame(isNewRunningGame);
+    setEmptyBoxes(newEmptyBoxes);
+    console.log("empty boxes", emptyBoxes);
   };
 
   const addNewBox = () => {
@@ -44,6 +117,8 @@ export const Grid = () => {
     const randomIndex = Math.floor(Math.random() * emptyBoxes.length);
     const selectedEmptyBox = emptyBoxes[randomIndex];
     const randomNewValue = Math.floor(Math.random() * 100) % 2 === 0 ? 2 : 4;
+
+    // console.log("RRRRR", emptyBoxes);
 
     newGrid[selectedEmptyBox.row][selectedEmptyBox.column] = randomNewValue;
     setGrid(newGrid);
@@ -73,10 +148,28 @@ export const Grid = () => {
   };
 
   const moveBoxes = () => {
+    const newGrid = [...grid];
     switch (direction) {
       case "down":
-        // check rows down to up (not the 4th row = not interest)
-        // if there is non null values, they are
+        for (let i = 2; i >= 0; i--) {
+          // check rows down to up (not the 4th row = not interest)
+          for (let box of newGrid[i]) {
+            // if there are non null values:
+            if (box !== null) {
+              let bellowBox: number | null =
+                newGrid[i + 1][newGrid.indexOf(box)];
+              if (!bellowBox) {
+                // they are switched to the row bellow only if the value bellow is empty
+                bellowBox = box;
+                box = null;
+              } else if (bellowBox === box) {
+                // if the value bellow is the same, we add the two values in the case bellow
+                bellowBox = box * 2;
+                box = null;
+              }
+            }
+          }
+        }
         break;
       case "up":
         break;
