@@ -9,7 +9,8 @@ export const Grid = () => {
   ]);
   const [isRunningGame, setIsRunningGame] = useState<boolean | null>(true);
   const [endGame, setEndGame] = useState<string | null>(null);
-  const [emptyBoxes, setEmptyBoxes] = useState<Array>([]);
+  const [emptyBoxes, setEmptyBoxes] = useState<[Object]>([]);
+  const [direction, setDirection] = useState<string>("down");
 
   const checkEndOfGame = () => {
     setIsRunningGame(false);
@@ -27,10 +28,11 @@ export const Grid = () => {
         if (value == null) {
           setIsRunningGame(true);
           setEmptyBoxes(
-            emptyBoxes.insert({
-              row: grid.indexOf(row),
-              column: grid[grid.indexOf(row)].indexOf(value),
-            })
+            emptyBoxes <<
+              {
+                row: grid.indexOf(row),
+                column: grid[grid.indexOf(row)].indexOf(value),
+              }
           );
         }
       }
@@ -47,6 +49,29 @@ export const Grid = () => {
     setGrid(newGrid);
   };
 
+  const listenDirection = () => {
+    document.addEventListener("keydown", function (event) {
+      let keyDownDirection = "";
+
+      switch (event.key) {
+        case "ArrowUp":
+          keyDownDirection = "up";
+          break;
+        case "ArrowDown":
+          keyDownDirection = "down";
+          break;
+        case "ArrowLeft":
+          keyDownDirection = "left";
+          break;
+        case "ArrowRight":
+          keyDownDirection = "right";
+          break;
+      }
+
+      setDirection(keyDownDirection);
+    });
+  };
+
   const playGame = () => {
     // Conditions for a new turn : no box with 2048 value (succeed) && no empty grid
     checkEndOfGame();
@@ -56,7 +81,10 @@ export const Grid = () => {
       addNewBox();
 
       // Add event listener on keyboard for one direction
+      listenDirection();
+
       // Move boxes + add their value when they are side by side
+
       // Add +1 at counter
     }
   };
@@ -65,30 +93,36 @@ export const Grid = () => {
 
   return (
     <div className="container">
-      <div className="row">
-        <div className="column">{grid[0][0] ?? "*"}</div>
-        <div className="column">{grid[0][1] ?? "*"} </div>
-        <div className="column">{grid[0][2] ?? "*"}</div>
-        <div className="column">{grid[0][3] ?? "*"}</div>
-      </div>
-      <div className="row">
-        <div className="column">{grid[1][0] ?? "*"}</div>
-        <div className="column">{grid[1][1] ?? "*"}</div>
-        <div className="column">{grid[1][2] ?? "*"}</div>
-        <div className="column">{grid[1][3] ?? "*"}</div>
-      </div>
-      <div className="row">
-        <div className="column">{grid[2][0] ?? "*"}</div>
-        <div className="column">{grid[2][1] ?? "*"}</div>
-        <div className="column">{grid[2][2] ?? "*"}</div>
-        <div className="column">{grid[2][3] ?? "*"}</div>
-      </div>
-      <div className="row">
-        <div className="column">{grid[3][0] ?? "*"}</div>
-        <div className="column">{grid[3][1] ?? "*"}</div>
-        <div className="column">{grid[3][2] ?? "*"}</div>
-        <div className="column">{grid[3][3] ?? "*"}</div>
-      </div>
+      {isRunningGame && endGame ? (
+        <div>{endGame}</div>
+      ) : (
+        <div className="container">
+          <div className="row">
+            <div className="column">{grid[0][0] ?? "*"}</div>
+            <div className="column">{grid[0][1] ?? "*"} </div>
+            <div className="column">{grid[0][2] ?? "*"}</div>
+            <div className="column">{grid[0][3] ?? "*"}</div>
+          </div>
+          <div className="row">
+            <div className="column">{grid[1][0] ?? "*"}</div>
+            <div className="column">{grid[1][1] ?? "*"}</div>
+            <div className="column">{grid[1][2] ?? "*"}</div>
+            <div className="column">{grid[1][3] ?? "*"}</div>
+          </div>
+          <div className="row">
+            <div className="column">{grid[2][0] ?? "*"}</div>
+            <div className="column">{grid[2][1] ?? "*"}</div>
+            <div className="column">{grid[2][2] ?? "*"}</div>
+            <div className="column">{grid[2][3] ?? "*"}</div>
+          </div>
+          <div className="row">
+            <div className="column">{grid[3][0] ?? "*"}</div>
+            <div className="column">{grid[3][1] ?? "*"}</div>
+            <div className="column">{grid[3][2] ?? "*"}</div>
+            <div className="column">{grid[3][3] ?? "*"}</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
